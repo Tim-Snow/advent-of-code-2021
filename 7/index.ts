@@ -1,12 +1,13 @@
 import { read, stringToInt } from "../util";
 
 export default function day7() {
-  const data = read("./data_7.txt").split(",").map(stringToInt);
+  const data = read("./data.txt", 7).split(",").map(stringToInt);
   const [min, max] = [Math.min(...data), Math.max(...data)];
 
-  const triangleNumber = (num) => (num * (num + 1)) / 2;
-  const distance = (from, to) => (from > to ? from - to : to - from);
-  const sumDistances = (nodes, to) =>
+  const triangleNumber = (num: number) => (num * (num + 1)) / 2;
+  const distance = (from: number, to: number) =>
+    from > to ? from - to : to - from;
+  const sumDistances = (nodes: number[], to: number) =>
     nodes.reduce(
       ([sum1, sum2], from) => {
         const dist = distance(from, to);
@@ -22,5 +23,9 @@ export default function day7() {
       [Infinity, Infinity]
     );
 
-  return { 1: p1, 2: p2 };
+  const res = { 1: p1, 2: p2 };
+  console.log(res);
+  return res;
 }
+
+day7();

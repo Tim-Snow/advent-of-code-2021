@@ -2,7 +2,7 @@ import { read, stringToInt } from "../util";
 
 export default function day5() {
   function loadData() {
-    const data = read("./test.txt");
+    const data = read("./test.txt", 5);
 
     let gridMinX = 1000;
     let gridMinY = 1000;
@@ -130,5 +130,9 @@ export default function day5() {
 
   function pt2() {}
 
-  return { 1: pt1(), 2: pt2() };
+  const res = { 1: pt1(), 2: pt2() };
+  console.log(res);
+  return res;
 }
+
+day5();

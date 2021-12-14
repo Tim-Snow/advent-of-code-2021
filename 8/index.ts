@@ -1,7 +1,7 @@
 import { read } from "../util";
 
 export default function day8() {
-  const data = read("./data.txt");
+  const data = read("./data.txt", 8);
 
   const letters = ["a", "b", "c", "d", "e", "f", "g"];
 
@@ -81,5 +81,9 @@ export default function day8() {
       .map((pattern) => segmentArrayToInt(segmentsToArray(pattern)) ?? pattern)
   );
 
-  return { 1: part1, 2: undefined };
+  const res = { 1: part1, 2: undefined };
+  console.log(res);
+  return res;
 }
+
+day8();

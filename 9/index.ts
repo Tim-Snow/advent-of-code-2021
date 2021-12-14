@@ -1,7 +1,7 @@
 import { read, stringToInt } from "../util";
 
 export default function day9() {
-  const data = read("./test.txt")
+  const data = read("./test.txt", 9)
     .split("\n")
     .map((line) => line.split("").map(stringToInt));
 
@@ -37,5 +37,9 @@ export default function day9() {
     // .reduce((p, c) => (parseInt(c, 10) >= 0 ? p + (c + 1) : p), null)
   );
 
-  console.log(r);
+  const res = r;
+  console.log(res);
+  return res;
 }
+
+day9();

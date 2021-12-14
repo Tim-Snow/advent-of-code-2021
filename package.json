@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc",
-    "run-one": "npm run build && cd $1 && node index.js",
-    "run-all": "npm run build && node index.js"
+    "r": "ts-node"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^16.11.12",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.3"
   }
 }

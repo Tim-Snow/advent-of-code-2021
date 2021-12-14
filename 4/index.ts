@@ -1,16 +1,21 @@
-import { read } from "../util";
+import { read, stringToInt } from "../util";
+
+type Col = {
+  value: number;
+  state: number;
+};
 
 export default function day4() {
   function loadData() {
-    let numbers = undefined;
-    let grids = [];
+    let numbers: number[] | undefined;
+    let grids: Col[][] = [];
     let iter = -1;
     let innerIter = 0;
-    const data = read("./data.txt");
+    const data = read("./data.txt", 4);
 
     data.split("\n").forEach((line) => {
       if (!numbers) {
-        return (numbers = line.split(",").map((num) => parseInt(num, 10)));
+        return (numbers = line.split(",").map((num) => stringToInt(num)));
       }
 
       if (line.length === 0) {
@@ -23,17 +28,19 @@ export default function day4() {
       grids[iter][innerIter] = line
         .trim()
         .split(/\s+/)
-        .map((num) => ({ value: parseInt(num), state: 0 }));
+        .map((num) => ({ value: stringToInt(num), state: 0 }));
       innerIter += 1;
     });
 
     return { numbers, grids };
   }
 
-  const isComplete = (colObjs) => colObjs.every((colObj) => colObj.state === 1);
-  const getColumnValuesForIndex = (grid, i) => grid.map((rows) => rows[i]);
+  const isComplete = (colObjs: Col[]) =>
+    colObjs.every((colObj) => colObj.state === 1);
+  const getColumnValuesForIndex = (grid: string[], i: number) =>
+    grid.map((rows) => rows[i]);
 
-  function calculateFinalValue(grid, lastNumber) {
+  function calculateFinalValue(grid: Col[][], lastNumber: number) {
     const sumUnmarked = grid
       .flatMap((row) => row.filter((col) => col.state === 0))
       .map((v) => v.value)
@@ -42,7 +49,7 @@ export default function day4() {
     return sumUnmarked * lastNumber;
   }
 
-  function getTurnsToWin(grid, numbers) {
+  function getTurnsToWin(grid: Col[], numbers: number[]) {
     let iterations = 0;
     for (const number of numbers) {
       for (const row of grid) {
@@ -91,5 +98,9 @@ export default function day4() {
     return calculateFinalValue(highest.grid, highest.number);
   }
 
-  return { 1: pt1(), 2: pt2() };
+  const res = { 1: pt1(), 2: pt2() };
+  console.log(res);
+  return res;
 }
+
+day4();

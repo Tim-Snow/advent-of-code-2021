@@ -1,14 +1,12 @@
-import { read } from "../util";
-
-const data = JSON.parse(read("./data.json"));
+import data from "./data.json";
 
 export default function day2() {
-  function calculateDepth(d) {
+  function calculateDepth(d: string[]) {
     let horiz_pos = 0;
     let depth = 0;
     let aim = 0;
 
-    d.forEach((instruction) => {
+    d.forEach((instruction: string) => {
       const [direction, amount] = instruction.split(" ");
 
       switch (direction) {
@@ -28,5 +26,9 @@ export default function day2() {
     return horiz_pos * depth;
   }
 
-  return { 2: calculateDepth(data) };
+  const res = { 2: calculateDepth(data) };
+  console.log(res);
+  return res;
 }
+
+day2();

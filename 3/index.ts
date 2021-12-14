@@ -1,22 +1,24 @@
-import { read } from "../util";
-
-const data = JSON.parse(read("./data.json"));
+import data from "./data.json";
 
 export default function day3() {
-  const binToDec = (bin) => parseInt(bin, 2);
+  const binToDec = (bin: string) => parseInt(bin, 2);
   const multBinNums = (...nums: string[]) =>
     binToDec(nums[0]) * binToDec(nums[1]);
-  const isOne = (val) => val === "1";
-  const oppositeBinVal = (val) => (isOne(val) ? "0" : "1");
-  const doNothing = (val) => val;
+  const isOne = (val: string) => val === "1";
+  const oppositeBinVal = (val: string) => (isOne(val) ? "0" : "1");
+  const doNothing = (val: any) => val;
 
-  function mostCommonBitAtIndex(data, index, transform = doNothing) {
+  function mostCommonBitAtIndex(
+    data: string[],
+    index: number,
+    transform = doNothing
+  ) {
     const ones = data.map((bits) => bits.charAt(index)).filter(isOne);
     const zeroes = data.length - ones.length;
     return transform(zeroes > ones.length ? "0" : "1");
   }
 
-  function getGammaEpsilon(data) {
+  function getGammaEpsilon(data: string[]) {
     let gamma = "";
     let epsilon = "";
 
@@ -29,9 +31,14 @@ export default function day3() {
     return [gamma, epsilon];
   }
 
-  function findRemainingItem(data, transform = doNothing, index = 0) {
+  function findRemainingItem(
+    data: string[],
+    transform = doNothing,
+    index = 0
+  ): string {
     const filtered = data.filter(
-      (v) => v.charAt(index) === mostCommonBitAtIndex(data, index, transform)
+      (v: string) =>
+        v.charAt(index) === mostCommonBitAtIndex(data, index, transform)
     );
 
     if (filtered.length > 1) {
@@ -44,8 +51,12 @@ export default function day3() {
   const oxygenGeneratorRating = findRemainingItem(data);
   const c02ScrubberRating = findRemainingItem(data, oppositeBinVal);
 
-  return {
+  const res = {
     1: multBinNums(...getGammaEpsilon(data)),
     2: multBinNums(oxygenGeneratorRating, c02ScrubberRating),
   };
+  console.log(res);
+  return res;
 }
+
+day3();
