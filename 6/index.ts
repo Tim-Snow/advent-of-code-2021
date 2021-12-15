@@ -31,14 +31,21 @@ export function day6() {
     ];
   }
 
-  function* run() {
+  function* run({
+    from,
+    to,
+    intermediary,
+  }: {
+    from: number;
+    to: number;
+    intermediary?: number;
+  }) {
     let data = loadData();
-    let iter = 0;
 
-    while (iter < 256) {
+    while (from < to) {
+      from++;
       data = simulateDay(data);
-      iter++;
-      if (iter === 80) {
+      if (from === intermediary) {
         yield data.reduce(add, 0);
       }
     }
@@ -46,7 +53,7 @@ export function day6() {
     yield data.reduce(add, 0);
   }
 
-  const runner = run();
+  const runner = run({ from: 0, to: 256, intermediary: 80 });
 
   return { 1: runner.next().value, 2: runner.next().value };
 }
