@@ -33,23 +33,24 @@ export function day6() {
     ];
   }
 
-  function pt1() {
+  function* run() {
     let data = loadData();
-    for (let i = 0; i < 80; i++) {
+    let iter = 0;
+
+    while (iter < 256) {
       data = simulateDay(data);
+      iter++;
+      if (iter === 80) {
+        yield data.reduce((p, c) => p + c, 0);
+      }
     }
-    return data.reduce((p, c) => p + c, 0);
+
+    yield data.reduce((p, c) => p + c, 0);
   }
 
-  function pt2() {
-    let data = loadData();
-    for (let i = 0; i < 256; i++) {
-      data = simulateDay(data);
-    }
-    return data.reduce((p, c) => p + c, 0);
-  }
+  const runner = run();
 
-  return { 1: pt1(), 2: pt2() };
+  return { 1: runner.next().value, 2: runner.next().value };
 }
 
 console.log(day6());
