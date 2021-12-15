@@ -1,14 +1,12 @@
-import { read, stringToInt } from "../util";
-
-type Days = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+import { add, read, stringToInt } from "../util";
 
 export function day6() {
   function loadData() {
     return read("data.txt", 6)
       .split(",")
-      .map((v) => parseInt(v, 10) as Days)
+      .map(stringToInt)
       .reduce(
-        (p, c, i) => {
+        (p, c) => {
           const before = p.slice(0, c);
           const cur = p[c];
           const after = p.slice(c + 1);
@@ -41,11 +39,11 @@ export function day6() {
       data = simulateDay(data);
       iter++;
       if (iter === 80) {
-        yield data.reduce((p, c) => p + c, 0);
+        yield data.reduce(add, 0);
       }
     }
 
-    yield data.reduce((p, c) => p + c, 0);
+    yield data.reduce(add, 0);
   }
 
   const runner = run();

@@ -1,4 +1,4 @@
-import { read, stringToInt } from "../util";
+import { add, read, stringToInt } from "../util";
 
 type Col = {
   value: number;
@@ -44,7 +44,7 @@ export default function day4() {
     const sumUnmarked = grid
       .flatMap((row) => row.filter((col) => col.state === 0))
       .map((v) => v.value)
-      .reduce((p, c) => p + c, 0);
+      .reduce(add, 0);
 
     return sumUnmarked * lastNumber;
   }

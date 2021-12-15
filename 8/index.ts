@@ -1,4 +1,4 @@
-import { read } from "../util";
+import { add, read } from "../util";
 
 export default function day8() {
   const data = read("./data.txt", 8);
@@ -40,7 +40,7 @@ export default function day8() {
 
   const arraysEqual = (a1, a2) =>
     a1.length === a2.length && a1.every((v) => a2.includes(v));
-  const sum = (p, c) => p + c;
+
   const segmentsToArray = (str) => str.split("").reduce((p, c) => [...p, c]);
 
   const segmentArrayToInt = (arr) =>
@@ -70,9 +70,9 @@ export default function day8() {
       set
         .split(" ")
         .map((pattern) => [2, 3, 4, 7].includes(pattern.length))
-        .reduce(sum)
+        .reduce(add)
     )
-    .reduce(sum);
+    .reduce(add);
 
   const part2 = patterns.map((set) =>
     set
